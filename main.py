@@ -1,7 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
-import time
-from google.api_core.exceptions import ResourceExhausted
+
 
 
 # Configure Streamlit page settings
@@ -53,11 +52,4 @@ if user_prompt:
     # Display Gemini-Pro's response
     with st.chat_message("assistant"):
         st.markdown(gemini_response.text)
-        
-    try:
-        gemini_response = st.session_state.chat_session.send_message(user_prompt)
-    except ResourceExhausted as e:
-        print("Quota exceeded. Waiting 37 seconds...")
-        time.sleep(37)
-        gemini_response = st.session_state.chat_session.send_message(user_prompt)   
 
